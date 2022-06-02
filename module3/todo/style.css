@@ -9,7 +9,11 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: #DABAC3;
+    /* background-color: #DABAC3; */
+    background-image: url(sea.jpg);
+    background-repeat: no-repeat;
+    background-size: 1300px;
+ 
 }
 
 input{
@@ -20,8 +24,8 @@ input{
     font-size: 1.25rem;
     outline: none;
     border-radius: 30px;
-    background-color: #E394C1;
-    color : #6F4255;
+    background-color: #2509f8;
+    color :white;
 }
 
 li{
@@ -30,7 +34,7 @@ li{
   display: flex;
   justify-content: space-between;
   font-size: 1.25rem;
-  background-color: #EEBDD8;
+  background-color: rgb(30, 196, 238);
   border : 1px solid black;
   padding: 0.5rem;
   margin: 0.25 rem;
