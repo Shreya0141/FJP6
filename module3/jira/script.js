@@ -3,13 +3,57 @@ let modalCont = document.querySelector(".modal-cont");
 let taskAreaCont = document.querySelector(".textarea-cont");
 let mainCont = document.querySelector(".main-cont");
 let allPriorityColors = document.querySelectorAll(".priority-color");
+let toolBoxColors = document.querySelectorAll(".color");
 let removeBtn = document.querySelector(".remove-btn");
 let colors = ["lightpink","blue","green","black"];
 let removemodal = false;
 let addmodal = true;
 let modalPriorityColor = colors[colors.length-1];
+var uid = new ShortUniqueId();
+
 
 let ticketArr = [];
+for(let i = 0; i< toolBoxColors.length;i++){
+    toolBoxColors[i].addEventListener("click",function(){
+        let currentColor = toolBoxColors[i].classList[1];
+        let filteredArr = [];
+        for(let i = 0 ; i< ticketArr.length;i++){
+            if(ticketArr[i].color == currentColor){
+                filteredArr.push(ticketArr[i]);
+            }
+        }
+
+        let allTickets = document.querySelectorAll(".ticket-cont");
+        for(let j = 0 ; j <allTickets.length;j++){
+            allTickets[j].remove();
+        }
+
+        for(let  i = 0 ; i < filteredArr.length;i++){
+            let ticket = filteredArr[i];
+            let color = ticket.color;
+            let task = ticket.task;
+            let id = ticket.id;
+            createTicket(color,task,id);
+        }
+
+    })
+
+    toolBoxColors[i].addEventListener("dblclick",function(){
+        let allTickets = document.querySelectorAll(".ticket-cont");
+        for(let j = 0 ; j < allTickets.length;j++){
+            allTickets[j].remove();
+        }
+        
+        for(let  i = 0 ; i < ticketArr.length;i++){
+            let ticket = ticketArr[i];
+            let color = ticket.color;
+            let task = ticket.task;
+            let id = ticket.id;
+            createTicket(color,task,id);
+        }
+    })
+    
+}
 
 addbtn.addEventListener("click",function(){
     if(addmodal){
@@ -23,7 +67,7 @@ addmodal = !addmodal;
 for(let i = 0 ; i <allPriorityColors.length;i++){
     let priorityDivOnecolor = allPriorityColors[i];
     priorityDivOnecolor.addEventListener("click",function(){
-        for(let j = 0;j<allPriorityColors.length;j++){
+        for(let j = 0;j < allPriorityColors.length;j++){
             allPriorityColors[j].classList.remove("active");
         }
         priorityDivOnecolor.classList.add("active");
@@ -36,7 +80,7 @@ modalCont.addEventListener("keydown",function(e){
     if(key == 'Enter'){
         createTicket(modalPriorityColor,taskAreaCont.value);
         taskAreaCont.value = "";
-        modalCont.stye.display = "none";
+        modalCont.style.display = "none";
         addmodal = !addmodal;
     }
 })
@@ -51,19 +95,42 @@ removeBtn.addEventListener("click",function(){
     removemodal = !removemodal;
 })
 
-function createTicket(ticketColor,task){
+function createTicket(ticketColor,task,ticketid){
+    let id;
+    if(ticketid == undefined){
+        id = uid();
+    }else{
+        id = ticketid;
+    }
     // <div class="ticket-cont">
             // <div class="ticket-color"></div>
             // <div class="ticketid">1234</div>
             // <div class="taskarea">hello world</div>
     //     </div>
+   
     let ticketCont = document.createElement("div");
     ticketCont.setAttribute('class','ticket-cont');
-    ticketCont.innerHTML = ` <div class="ticket-color ${ticketColor}"></div>
-                             <div class="ticketid">1234</div>
-                             <div class="taskarea">${task}</div>`
+    ticketCont.innerHTML = `<div class="ticket-color ${ticketColor}"></div>
+                            <div class="ticketid">#${id}</div>
+                            <div class="textarea">${task}</div>
+                            <div class ="lock-unlock"><i class =" fa fa-lock"></i></div>`
     mainCont.appendChild(ticketCont);
     
+    //lockUnlock handle
+    let lockUnlockBtn = ticketCont.querySelector(".lock-unlock i");
+    let ticketTextArea = ticketCont.querySelector(".textarea");
+    lockUnlockBtn.addEventListener("click",function(){
+        if(lockUnlockBtn.classList.contains("fa-lock")){
+            lockUnlockBtn.classList.remove("fa-lock");
+            lockUnlockBtn.classList.add("fa-unlock");
+            ticketTextArea.setAttribute("contenteditable","true");
+        }else{
+            lockUnlockBtn.classList.remove("fa-unlock");
+            lockUnlockBtn.classList.add("fa-lock");
+            ticketTextArea.setAttribute("contenteditable","false");
+        }
+    })
+
 
     //handling remove
     ticketCont.addEventListener("click",function(){
@@ -89,5 +156,10 @@ function createTicket(ticketColor,task){
         ticketColorBand.classList.remove(currentTicketColor);
         ticketColorBand.classList.add(nextColor);
     })
+
+    if(ticketid == undefined)
+        ticketArr.push({"color": ticketColor,"task":task,"id":"#"+id})
+        console.log(ticketArr);
+    
 }
 

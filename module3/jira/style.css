@@ -81,13 +81,14 @@ body{
 
 .textarea-cont{
   border: none;
-  background-color: #CCF3EE;
+  background-color: #F9F3EE;
   outline: none;
   resize:none;
   height: 100%;
   width:75%;
   font-size: 2rem ;
   padding: 2rem;
+  border-right: 2px solid black;
   
 
 }
@@ -132,14 +133,24 @@ body{
 
 .ticketid{
     height: 1.5rem;
-
-
+    font-weight: 600;
+    font-size: .9rem;
+    margin-left: 0.3rem;
+    margin-top: 0.3rem;
 }
 
 .textarea{
-    height: calc(100% -1rem-1.5rem);
+    height: 5rem;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
     font-size: 1.25rem;
+    overflow: auto;
+    outline: none;
+    word-break: break-all;
+}
 
+.lock-unlock{
+    font-size: 1.5rem;
+    margin-left: 14.5rem;
+    
 }
