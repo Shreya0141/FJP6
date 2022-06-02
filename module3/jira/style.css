@@ -2,35 +2,42 @@
 box-sizing: border-box;
 
 }
-.body{
-    margin: 0%;
-    padding: 0%;
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #97C4B8;
+    
 }
 .toolbox-cont{
     height : 5rem;
-    background-color: black;
+    background-color:#F9CEEE;
     display: flex;
     align-items: center;
+    position: fixed;
+    width: 100vw;
+    top: 0px;
 }
 
 .toolbox-priority-cont{
     height : 3rem;
     width : 18rem;
-    background-color: aqua;
+    background-color:#F9F3EE;
     margin-left: 5rem;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    border-radius: 2px;
 }
 
 .actionbtn-cont{
     height: 3rem ;
     width: 10rem;
-    background-color: beige;
+    background-color: #F9F3EE;
     margin-left: 5rem;
     justify-content: space-around;
     display: flex;
     align-items: center;
+    border-radius: 2px;
 }
 
 .color{
@@ -65,7 +72,7 @@ box-sizing: border-box;
     position: absolute;
     left: 25vw;
     top: 25vh;
-    background-color: lightgrey;
+    background-color: #F9F3EE;
     height: 50vh;
     width: 50vw;
     display: none;
@@ -74,27 +81,25 @@ box-sizing: border-box;
 
 .textarea-cont{
   border: none;
-  background-color: lightyellow;
+  background-color: #CCF3EE;
   outline: none;
   resize:none;
   height: 100%;
   width:75%;
   font-size: 2rem ;
   padding: 2rem;
-  border-right: 2px solid #141E27;
+  
 
-  
-  
 }
 
 .priority-color-cont{
   height: 100%;
   width:25%;
-  background-color: lightcoral;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+ 
 }
 
 .priority-color{
@@ -102,7 +107,7 @@ box-sizing: border-box;
  width: 5rem;
 }
 .active{
-    border: 5px solid red;
+    border: 5px solid #97C4B8;
 }
 
 .main-cont{
@@ -116,7 +121,7 @@ box-sizing: border-box;
 }
 
 .ticket-cont{
-    background-color: lightblue;
+    background-color: #F9F3EE;
     height: 10rem;
     width: 16rem;
 }
@@ -127,13 +132,14 @@ box-sizing: border-box;
 
 .ticketid{
     height: 1.5rem;
-    background-color: red;
+
 
 }
 
 .textarea{
     height: calc(100% -1rem-1.5rem);
-    padding: 5px;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
     font-size: 1.25rem;
 
 }
