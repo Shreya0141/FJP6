@@ -13,6 +13,16 @@ var uid = new ShortUniqueId();
 
 
 let ticketArr = [];
+
+if(localStorage.getItem("tickets")){
+    let str = localStorage.getItem("tickets");
+    let arr = JSON.parse(str);
+    ticketArr = arr; 
+    for(let i = 0;i<arr.length;i++){
+        let  ticketObj = arr[i];
+        createTicket(ticketObj.color,ticketObj.task,ticketObj.id);
+    }
+}
 for(let i = 0; i< toolBoxColors.length;i++){
     toolBoxColors[i].addEventListener("click",function(){
         let currentColor = toolBoxColors[i].classList[1];
@@ -129,20 +139,32 @@ function createTicket(ticketColor,task,ticketid){
             lockUnlockBtn.classList.add("fa-lock");
             ticketTextArea.setAttribute("contenteditable","false");
         }
+        //update text area of ticketarr
+        let ticketIdx = getTicketIdx(id);
+        ticketArr[ticketIdx].task = ticketTextArea.textContent;
+        updateLocalStorage();
     })
 
 
     //handling remove
     ticketCont.addEventListener("click",function(){
-        if(removemodal)
-            ticketCont.remove();
-        
+        if(removemodal){
+                    //delete from UI
+                     ticketCont.remove();
+
+                     //delete from ticketArr
+                     let ticketIdx = getTicketIdx(id);
+                     ticketArr.splice(ticketIdx,1)//remves 1 ticket at a time
+                     updateLocalStorage();
+
+        }
     })
 
     //handling color
 
     let ticketColorBand = ticketCont.querySelector(".ticket-color");
     ticketColorBand.addEventListener("click",function(){
+        //update UI
         let currentTicketColor = ticketColorBand.classList[1];
         let currentTicketColorIdx = -1;
         for(let i = 0 ; i <colors.length;i++){
@@ -151,15 +173,34 @@ function createTicket(ticketColor,task,ticketid){
                 break;
             }
         }
+
         let nextColorIdx = (currentTicketColorIdx+1)%colors.length;
         let nextColor = colors[nextColorIdx];
         ticketColorBand.classList.remove(currentTicketColor);
         ticketColorBand.classList.add(nextColor);
+
+        //update ticketArr
+        let ticketIdx = getTicketIdx(id);
+        ticketArr[ticketIdx].color = nextColor;
+        updateLocalStorage();
     })
 
     if(ticketid == undefined)
         ticketArr.push({"color": ticketColor,"task":task,"id":"#"+id})
-        console.log(ticketArr);
+       updateLocalStorage();
     
+}
+
+function getTicketIdx(id){
+    for(let i = 0 ; i<ticketArr.length;i++){
+        if(ticketArr[i].id == id){
+            return  i;
+        }
+    }
+}
+
+function updateLocalStorage(){
+    let stringifyArr = JSON.stringify(ticketArr);
+    localStorage.setItem("tickets",stringifyArr);
 }
 
