@@ -23,15 +23,17 @@
 }
 
 .cells-content{
-    height: 85vh;
+    height: 89vh;
     background-color: white;
     overflow: auto;
     position: relative;
 }
 
 .sheets{
+    display: flex;
     border: 0.5px solid black;
     height: 30px;
+    background-color: var(--cell-background);
 }
 
 .row{
@@ -102,7 +104,7 @@
 
 #address{
     text-align: center;
-    font-size: large;
+    font-size: small;
     width: 50px;
     border: none;
     background-color: var(--cell-background)
@@ -115,3 +117,36 @@
     padding: 5px;
     border-left: 0.1px solid var(--border-color);
 }
+
+.sheets-list{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.add-sheet{
+    width: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: green;
+    border-right: 0.1px  solid var(--border-color);
+}
+
+.sheet{
+    border-right:  0.1px  solid var(--border-color);
+    width: 90px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.active-sheet{
+    background-color: white;
+    font-weight: bold;
+}
+
+
