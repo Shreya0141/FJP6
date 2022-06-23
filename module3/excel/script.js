@@ -13,16 +13,44 @@ cellsContentDiv.addEventListener("scroll",function(e){
     topLeftCell.style.top = scrollFromTop+"px";
     topLeftCell.style.left = scrollFromLeft+"px";
 })
+
+let rowId;
+let colId
 for(let i=0;i<allCells.length;i++){
     allCells[i].addEventListener("click",function(e){
-        let rowId = Number(e.target.getAttribute("rowid"));
-        let colId = Number(e.target.getAttribute("colid"));
+        if(lastSelectedCell){
+            lastSelectedCell.classList.remove("active-cell");
+            document.querySelector(`div[trid = '${colId}']`).classList.remove("active-row-col");
+            document.querySelector(`div[lcid = '${rowId}']`).classList.remove("active-row-col");
+
+        }
+
+         rowId = Number(e.target.getAttribute("rowid"));
+         colId = Number(e.target.getAttribute("colid"));
+
+         e.target.classList.add("active-cell");
+         document.querySelector(`div[trid = '${colId}']`).classList.add("active-row-col");
+         document.querySelector(`div[lcid = '${rowId}']`).classList.add("active-row-col");
+
+
         let address = String.fromCharCode(65+colId)+(rowId+1)+"";
         // console.log(address);
         let cellObject = db[rowId][colId];
         addressInput.value = address;
         //update UI
         formulaInput.value = cellObject.formula;
+
+       
+
+        cellObject.fontStyle.bold?document.querySelector(".bold").classList.add("active-font-style"):
+        document.querySelector(".bold").classList.remove("active-font-style");
+
+        cellObject.fontStyle.italic?document.querySelector(".italic").classList.add("active-font-style"):
+        document.querySelector(".italic").classList.remove("active-font-style");
+
+        cellObject.fontStyle.underline?document.querySelector(".underline").classList.add("active-font-style"):
+        document.querySelector(".underline").classList.remove("active-font-style");
+    
     })
     allCells[i].addEventListener("blur",function(e){
         lastSelectedCell = e.target;
@@ -35,6 +63,14 @@ for(let i=0;i<allCells.length;i++){
         cellObject.value = cellValue;
         console.log("After UPdate",cellObject);
         updateChildren(cellObject);
+       
+    
+
+        if(cellObject.visited){
+            return;
+        }
+        cellObject.visited = true;
+        visitedCells.push({"rowId": rowId,"colId":colId});
     })
     allCells[i].addEventListener("keydown",function(e){
         if(e.key == 'Backspace'){
@@ -68,5 +104,7 @@ formulaInput.addEventListener("blur",function(e){
         //update ui
         lastSelectedCell.textContent = computedValue;
         updateChildren(cellObject);
+
+
     }
 })

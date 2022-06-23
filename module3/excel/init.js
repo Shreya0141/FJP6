@@ -4,13 +4,13 @@ function initCells(){
     //top-row
     cellsContent+="<div class='top-row'>"
     for(let i=0;i<26;i++){
-        cellsContent+=`<div class='top-row-cell'>${String.fromCharCode(65+i)}</div>`;
+        cellsContent+=`<div class='top-row-cell' trid ='${i}'>${String.fromCharCode(65+i)}</div>`;
     }
     cellsContent+="</div>"
     //left-col
     cellsContent+="<div class='left-col'>"
     for(let i=0;i<100;i++){
-        cellsContent+=`<div class='left-col-cell'>${i+1}</div>`
+        cellsContent+=`<div class='left-col-cell' lcid = '${i}'>${i+1}</div>`
     }
     cellsContent+="</div>"
     cellsContent+="<div class='cells'>"
@@ -26,9 +26,14 @@ function initCells(){
     cellsContentDiv.innerHTML = cellsContent;
 }
 initCells();
+
+let sheetsDB = [];
 let db;
+let visitedCells;
+
+
 function initDb(){
-    db = [];
+    let newsheetDB = [];
     for(let i=0;i<100;i++){
         let row = [];
         for(let j=0;j<26;j++){
@@ -38,11 +43,18 @@ function initDb(){
                 value:"",
                 formula:"",
                 children:[],
-                parent:[]
+                parent:[],
+                visited:false,
+                fontStyle:{bold:false,italic:false,underline:false}
             }
             row.push(cellObject);
         }
-        db.push(row);
+        newsheetDB.push(row);
     }
+    visitedCells = [];
+    db = newsheetDB;
+    
+     sheetsDB.push({db:newsheetDB,visitedCells:visitedCells});
+    console.log(sheetsDB);
 }
 initDb();
