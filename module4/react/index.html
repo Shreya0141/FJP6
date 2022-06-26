@@ -15,7 +15,7 @@
     </div>
     
 </body>
-<script >
+<script type="text/babel">
     // let ele = document.createElement("h1");
     // ele.innerText = "Hello Coder";
      let root = document.querySelector('#root');
@@ -34,14 +34,37 @@
 // }
 
 //ReactDOM.render(<Element/>,root);
-    function Element(){
-        return (
-            <h1> HelloCoder</h1>
+    function Element1({name="Arjun",age="23"}){
+        return(
+            <div>
+            <h1> Hello {name} Coder</h1>
+            <h2> Age is {age} </h2> 
+                </div>
         )
     }
+    function Element2({name="Arjun",age="23"}){
+        return(
+            <h2> How are you {name}?</h2>
+        )
+    }
+    
 
-    ReactDOM.render(<Element/>,root);
+    function Parent(){
+        return(
+            <div>
+            <Element1 name={"Shreya"} age = "20"/>
+            <Element2 name={"Shreya"} age = "20"/>
+            <Element1 name={"Shreya"} age = "20"/>
+            <Element2/>
+            </div>
+
+        )
+    }
+    ReactDOM.render(<Parent/>,root);
+
     </script>
+
+
     
 </html>
 
